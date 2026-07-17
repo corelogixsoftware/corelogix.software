@@ -13,43 +13,43 @@ sections.forEach(section => {
     observer.observe(section);
 });
 
-// ===== CoreBot: lógica del chat =====
-function sendMessage() {
+// ===== CoreBot: lógica del chat con IA =====
+async function sendMessage() {
     let input = document.getElementById("user-message");
     let message = input.value.trim();
 
-    if (message === "") return; // no hacer nada si está vacío
+    if (message === "") return;
 
     let chat = document.getElementById("chat-body");
 
     // Mostrar mensaje del usuario
     chat.innerHTML += "<p><b>Tú:</b> " + message + "</p>";
-
-    // Limpiar el input
     input.value = "";
-
-    // Generar respuesta del bot
-    let response = getBotResponse(message);
-
-    // Mostrar respuesta del bot
-    chat.innerHTML += "<p><b>CoreBot:</b> " + response + "</p>";
-
-    // Scroll automático hacia el último mensaje
     chat.scrollTop = chat.scrollHeight;
-}
 
-function getBotResponse(message) {
-    message = message.toLowerCase();
+    // Mostrar "escribiendo..." mientras esperamos respuesta
+    chat.innerHTML += `<p id="typing-indicator"><b>CoreBot:</b> escribiendo...</p>`;
+    chat.scrollTop = chat.scrollHeight;
 
-    if (message.includes("hola")) {
-        return "¡Hola! Soy CoreBot 🤖 ¿En qué puedo ayudarte hoy?";
-    } else if (message.includes("precio") || message.includes("costo")) {
-        return "Nuestros precios varían según el servicio que necesites. ¿Quieres que te contacte alguien de CoreLogix?";
-    } else if (message.includes("mantenimiento")) {
-        return "Ofrecemos mantenimiento de software para que tus sistemas funcionen sin interrupciones. ¿Qué problema estás teniendo?";
-    } else if (message.includes("gracias")) {
-        return "¡Con gusto! Estoy aquí para ayudarte 😊";
-    } else {
-        return "No estoy seguro de entender bien tu problema. ¿Puedes darme más detalles?";
+    try {
+        const response = await fetch("/.netlify/functions/corebot", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message }),
+        });
+
+        const data = await response.json();
+
+        // Quitar el indicador de "escribiendo..."
+        document.getElementById("typing-indicator")?.remove();
+
+        const reply = data.reply || "Lo siento, hubo un error. Intenta de nuevo.";
+        chat.innerHTML += "<p><b>CoreBot:</b> " + reply + "</p>";
+        chat.scrollTop = chat.scrollHeight;
+    } catch (error) {
+        document.getElementById("typing-indicator")?.remove();
+        chat.innerHTML += "<p><b>CoreBot:</b> Ocurrió un error de conexión. Intenta de nuevo.</p>";
+        chat.scrollTop = chat.scrollHeight;
+        console.error(error);
     }
 }
