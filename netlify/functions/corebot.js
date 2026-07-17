@@ -1,5 +1,4 @@
 exports.handler = async function (event) {
-  // Solo permitir POST
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -38,3 +37,23 @@ Mensaje del usuario: ${message}`,
           ],
         }),
       }
+    );
+
+    const data = await response.json();
+
+    const reply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Lo siento, no pude procesar tu mensaje. ¿Puedes intentar de nuevo?";
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ reply }),
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Error interno del servidor" }),
+    };
+  }
+};
