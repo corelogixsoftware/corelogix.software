@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreLogix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logosd.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+    <img src="img/logosd.png" alt="Logo CoreLogix">
+</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <h1>Bienvenido a CoreLogix</h1>
+        <p>Lógica que mantiene, soluciones que impulsan</p>
+         <a href="#contacto" class="cta-button">Contáctanos</a>
+    </section>
+   <section id="nosotros" class="about animate-on-scroll">
+        <h2>Sobre Nosotros</h2>
+        <p>
+            CoreLogix es una empresa de tecnología que está dando sus primeros pasos, 
+            con muchas ganas de crecer y hacer las cosas bien. Nos enfocamos en 
+            ofrecer soluciones cercanas y de calidad, cuidando cada detalle en el 
+            mantenimiento y la optimización de los sistemas de nuestros clientes. 
+            Estamos construyendo esto con dedicación, un proyecto a la vez.
+        </p>
+    </section>
+<section id="servicios" class="services animate-on-scroll">
+
+
+
+    
+
+
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+
+            <div class="service-card">
+               <div class="icon-circle">
+    <div class="service-icon">🛠️</div>
+</div>
+                <h3>Mantenimiento de Software</h3>
+                <p>Cuidamos y actualizamos tus sistemas para que funcionen sin interrupciones ni fallas.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-circle">
+    <div class="service-icon">⚡</div>
+</div>
+                <h3>Optimización</h3>
+                <p>Mejoramos el rendimiento de tus aplicaciones y procesos para que sean más rápidos y eficientes.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-circle">
+    <div class="service-icon">💻</div>
+</div>
+                <h3>Hardware</h3>
+                <p>Próximamente: soluciones integrales de hardware para complementar tu infraestructura tecnológica.</p>
+            </div>
+
+        </div>
+    </section>
+
+<section id="contacto" class="contact animate-on-scroll">
+        <h2>Contáctanos</h2>
+        <p>¿Tienes un proyecto en mente? Escríbenos, con gusto te ayudamos.</p>
+
+        <form class="contact-form" action="https://formspree.io/f/mojooepw" method="POST">
+
+    <input type="text" name="nombre" placeholder="Tu nombre" required>
+
+    <input type="email" name="email" placeholder="Tu correo electrónico" required>
+
+    <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+
+    <button type="submit">Enviar mensaje</button>
+
+</form>
+    </section>
+    <footer>
+    <p>&copy; 2026 CoreLogix. Todos los derechos reservados.</p>
+</footer>
+<div class="chatbot">
+
+    <div class="chat-header">
+        🤖 CoreBot
+    </div>
+
+    <div class="chat-body" id="chat-body">
+        <p>Hola 👋 soy CoreBot de CoreLogix. 
+        ¿En qué puedo ayudarte?</p>
+    </div>
+
+    <div class="chat-input">
+        <input id="user-message" 
+        type="text" 
+        placeholder="Escribe tu problema...">
+
+        <button onclick="sendMessage()">
+        Enviar
+        </button>
+    </div>
+
+</div>
+    <script src="js/script.js"></script>
+</body>
+</html>
