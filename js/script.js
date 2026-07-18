@@ -13,7 +13,9 @@ sections.forEach(section => {
     observer.observe(section);
 });
 
-// ===== CoreBot: lógica del chat con IA =====
+// ===== CoreBot: lógica del chat con IA (con memoria) =====
+let chatHistory = [];
+
 async function sendMessage() {
     let input = document.getElementById("user-message");
     let message = input.value.trim();
@@ -26,6 +28,8 @@ async function sendMessage() {
     input.value = "";
     chat.scrollTop = chat.scrollHeight;
 
+    chatHistory.push({ role: "user", content: message });
+
     chat.innerHTML += `<p id="typing-indicator"><b>CoreBot:</b> escribiendo...</p>`;
     chat.scrollTop = chat.scrollHeight;
 
@@ -33,7 +37,7 @@ async function sendMessage() {
         const response = await fetch("/.netlify/functions/corebot", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message }),
+            body: JSON.stringify({ messages: chatHistory }),
         });
 
         const data = await response.json();
@@ -41,6 +45,8 @@ async function sendMessage() {
         document.getElementById("typing-indicator")?.remove();
 
         const reply = data.reply || "Lo siento, hubo un error. Intenta de nuevo.";
+        chatHistory.push({ role: "assistant", content: reply });
+
         chat.innerHTML += "<p><b>CoreBot:</b> " + reply + "</p>";
         chat.scrollTop = chat.scrollHeight;
     } catch (error) {
