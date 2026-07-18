@@ -13,7 +13,7 @@ sections.forEach(section => {
     observer.observe(section);
 });
 
-// ===== CoreBot: lógica del chat con IA (con memoria) =====
+// ===== CoreBot: lógica del chat con IA (con memoria + captura de leads) =====
 let chatHistory = [];
 
 async function sendMessage() {
@@ -44,7 +44,15 @@ async function sendMessage() {
 
         document.getElementById("typing-indicator")?.remove();
 
-        const reply = data.reply || "Lo siento, hubo un error. Intenta de nuevo.";
+        let reply = data.reply || "Lo siento, hubo un error. Intenta de nuevo.";
+
+        const leadMatch = reply.match(/\[LEAD:(.*?)\|(.*?)\|(.*?)\]/);
+        if (leadMatch) {
+            const [, nombre, contacto, resumen] = leadMatch;
+            reply = reply.replace(/\[LEAD:(.*?)\]/, "").trim();
+            enviarLead(nombre.trim(), contacto.trim(), resumen.trim());
+        }
+
         chatHistory.push({ role: "assistant", content: reply });
 
         chat.innerHTML += "<p><b>CoreBot:</b> " + reply + "</p>";
@@ -54,5 +62,21 @@ async function sendMessage() {
         chat.innerHTML += "<p><b>CoreBot:</b> Ocurrió un error de conexión. Intenta de nuevo.</p>";
         chat.scrollTop = chat.scrollHeight;
         console.error(error);
+    }
+}
+
+async function enviarLead(nombre, contacto, resumen) {
+    try {
+        await fetch("https://formspree.io/f/mojooepw", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nombre: nombre,
+                contacto: contacto,
+                mensaje: "Lead capturado por CoreBot. Problema: " + resumen,
+            }),
+        });
+    } catch (error) {
+        console.error("Error al enviar lead:", error);
     }
 }
