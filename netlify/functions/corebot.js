@@ -19,20 +19,24 @@ exports.handler = async function (event) {
     const apiKey = process.env.GEMINI_API_KEY;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
         body: JSON.stringify({
-          contents: [
+          model: "llama-3.3-70b-versatile",
+          messages: [
             {
-              parts: [
-                {
-                  text: `Eres CoreBot, el asistente virtual de CoreLogix, una empresa de mantenimiento y optimización de software. Ayudas a diagnosticar problemas de computadores de forma breve y amigable, y si es un problema serio, invitas al usuario a dejar sus datos de contacto. Responde en español, de forma corta y clara.
-
-Mensaje del usuario: ${message}`,
-                },
-              ],
+              role: "system",
+              content:
+                "Eres CoreBot, el asistente virtual de CoreLogix, una empresa de mantenimiento y optimización de software. Ayudas a diagnosticar problemas de computadores de forma breve y amigable, y si es un problema serio, invitas al usuario a dejar sus datos de contacto. Responde en español, de forma corta y clara.",
+            },
+            {
+              role: "user",
+              content: message,
             },
           ],
         }),
@@ -40,10 +44,10 @@ Mensaje del usuario: ${message}`,
     );
 
     const data = await response.json();
-    console.log("Respuesta de Gemini:", JSON.stringify(data));
+    console.log("Respuesta de Groq:", JSON.stringify(data));
 
     const reply =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      data.choices?.[0]?.message?.content ||
       "Lo siento, no pude procesar tu mensaje. ¿Puedes intentar de nuevo?";
 
     return {
