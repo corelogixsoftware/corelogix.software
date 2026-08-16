@@ -20,6 +20,7 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#paquetes">Paquetes</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
@@ -40,6 +41,76 @@
             Estamos construyendo esto con dedicación, un proyecto a la vez.
         </p>
     </section>
+    <section id="paquetes" class="services animate-on-scroll">
+
+    <h2>Nuestros Paquetes</h2>
+    <div class="services-grid">
+
+        <div class="service-card">
+            <div class="icon-circle">
+                <div class="service-icon">🔍</div>
+            </div>
+            <h3>Diagnóstico Rápido</h3>
+            <p>Revisión completa del equipo + informe de fallas.</p>
+            <p class="price">$35.000 COP</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon-circle">
+                <div class="service-icon">⚡</div>
+            </div>
+            <h3>Optimización Total</h3>
+            <p>Revisión + optimización de software para que el equipo rinda como nuevo.</p>
+            <p class="price">$75.000 COP</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon-circle">
+                <div class="service-icon">🔄</div>
+            </div>
+            <h3>Reinicio Completo</h3>
+            <p>Cambio de SO + instalación de drivers + optimización. Para equipos muy lentos o con virus.</p>
+            <p class="price">$130.000 COP</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon-circle">
+                <div class="service-icon">🖥️</div>
+            </div>
+            <h3>Equipo Nuevo</h3>
+            <p>Asesoramiento de compra + instalación del equipo + drivers listos para usar.</p>
+            <p class="price">$90.000 COP</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon-circle">
+                <div class="service-icon">📅</div>
+            </div>
+            <h3>Mantenimiento Mensual</h3>
+            <p>Revisión + optimización recurrente para negocios o quien quiere su equipo siempre al día.</p>
+            <p class="price">$50.000 COP/mes por equipo</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon-circle">
+                <div class="service-icon">🌐</div>
+            </div>
+            <h3>Página Web Básica</h3>
+            <p>Sitio de una página, informativo.</p>
+            <p class="price">Desde $400.000 COP</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon-circle">
+                <div class="service-icon">🚀</div>
+            </div>
+            <h3>Página Web Completa</h3>
+            <p>Varias secciones, formulario de contacto, chatbot tipo CoreBot.</p>
+            <p class="price">Desde $900.000 COP</p>
+        </div>
+
+    </div>
+</section>
 <section id="servicios" class="services animate-on-scroll">
 
 
@@ -96,10 +167,10 @@
     <footer>
     <p>&copy; 2026 CoreLogix. Todos los derechos reservados.</p>
 </footer>
-<div class="chatbot">
-
-    <div class="chat-header">
-        🤖 CoreBot
+<div class="chatbot" id="chatbot">
+    <div class="chat-header" id="chat-header">
+        <span>🤖 CoreBot</span>
+        <button id="minimize-btn" class="minimize-btn">–</button>
     </div>
 
     <div class="chat-body" id="chat-body">
@@ -115,8 +186,7 @@
         <button onclick="sendMessage()">
         Enviar
         </button>
-    </div>
-
+        
 </div>
     <script src="js/script.js"></script>
 </body>

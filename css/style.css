@@ -398,3 +398,9 @@ footer {
     padding:10px;
 
 }
+
+.price {
+    font-weight: 700;
+    color: #2f6feb;
+    margin-top: 0.5rem;
+}

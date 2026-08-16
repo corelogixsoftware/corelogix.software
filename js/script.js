@@ -80,3 +80,41 @@ async function enviarLead(nombre, contacto, resumen) {
         console.error("Error al enviar lead:", error);
     }
 }
+
+// ===== Enviar con Enter =====
+document.getElementById("user-message").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+
+// ===== Minimizar/expandir el chat =====
+document.getElementById("minimize-btn").addEventListener("click", function(e) {
+    e.stopPropagation();
+    document.getElementById("chatbot").classList.toggle("minimized");
+});
+
+// ===== Mover el chat (arrastrar) =====
+const chatbotEl = document.getElementById("chatbot");
+const chatHeaderEl = document.getElementById("chat-header");
+let isDragging = false;
+let offsetX = 0, offsetY = 0;
+
+chatHeaderEl.addEventListener("mousedown", function(e) {
+    isDragging = true;
+    offsetX = e.clientX - chatbotEl.offsetLeft;
+    offsetY = e.clientY - chatbotEl.offsetTop;
+});
+
+document.addEventListener("mousemove", function(e) {
+    if (!isDragging) return;
+    chatbotEl.style.left = (e.clientX - offsetX) + "px";
+    chatbotEl.style.top = (e.clientY - offsetY) + "px";
+    chatbotEl.style.right = "auto";
+    chatbotEl.style.bottom = "auto";
+});
+
+document.addEventListener("mouseup", function() {
+    isDragging = false;
+});
